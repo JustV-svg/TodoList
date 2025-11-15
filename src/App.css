@@ -1,0 +1,375 @@
+/* --- 1. Definición de Variables (Tema Claro por defecto) --- */
+:root {
+  --font-sans: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', sans-serif;
+
+  /* Colores Tema Claro */
+  --bg-body: linear-gradient(135deg, #f4f7f6 0%, #eaf2f8 100%);
+  --bg-container: #ffffff;
+  --text-primary: #2c3e50;
+  --text-secondary: #7f8c8d;
+  --border-color: #ecf0f1;
+  --border-focus: #3498db;
+  --shadow-color: rgba(0, 0, 0, 0.08);
+  --shadow-color-hover: rgba(0, 0, 0, 0.1);
+  --btn-primary-bg: linear-gradient(135deg, #3498db, #2980b9);
+  --btn-primary-hover: linear-gradient(135deg, #2980b9, #1f6391);
+  --btn-danger-bg: #e74c3c;
+  --btn-danger-hover: #c0392b;
+  --checkbox-border: #bdc3c7;
+  --checkbox-checked: #3498db;
+}
+
+/* --- 2. Definición de Tema Oscuro --- */
+body.dark-mode {
+  /* Colores Tema Oscuro */
+  --bg-body: linear-gradient(135deg, #2c3e50 0%, #1a252f 100%);
+  --bg-container: #2c3e50;
+  --text-primary: #ecf0f1;
+  --text-secondary: #95a5a6;
+  --border-color: #3b4b5b;
+  --border-focus: #5dade2;
+  --shadow-color: rgba(0, 0, 0, 0.2);
+  --shadow-color-hover: rgba(0, 0, 0, 0.3);
+  --btn-primary-bg: linear-gradient(135deg, #5dade2, #3498db);
+  --btn-primary-hover: linear-gradient(135deg, #3498db, #2980b9);
+  --btn-danger-bg: #c0392b;
+  --btn-danger-hover: #e74c3c;
+  --checkbox-border: #7f8c8d;
+  --checkbox-checked: #5dade2;
+}
+
+/* --- 3. Animación de Fondo --- */
+@keyframes gradientAnimation {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--bg-body);
+  background-size: 300% 300%; 
+  color: var(--text-primary);
+  display: flex;
+  justify-content: center;
+  padding: 50px 20px; /* Padding en los lados para móviles */
+  min-height: 100vh;
+  box-sizing: border-box;
+  animation: gradientAnimation 18s ease infinite;
+  transition: background 0.5s ease;
+}
+
+/* --- 4. Contenedor Principal de la App --- */
+.app-container {
+  max-width: 600px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 30px;
+  background-color: var(--bg-container);
+  border-radius: 15px;
+  box-shadow: 0 8px 20px var(--shadow-color);
+  position: relative;
+  transition: transform 0.3s ease, background-color 0.5s ease, box-shadow 0.5s ease;
+}
+
+.app-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 25px var(--shadow-color-hover);
+}
+
+/* Títulos */
+h1 {
+  text-align: center;
+  color: var(--text-primary);
+  margin-bottom: 10px;
+  font-size: 2.2rem;
+  letter-spacing: 1px;
+  transition: color 0.5s ease;
+}
+
+.app-container > p {
+  text-align: center;
+  color: var(--text-secondary);
+  margin-bottom: 30px;
+  font-style: italic;
+  transition: color 0.5s ease;
+}
+
+/* --- 5. Formulario (TodoForm) --- */
+.todo-form {
+  display: flex;
+  margin-bottom: 25px;
+  gap: 10px;
+}
+
+.todo-input {
+  flex: 1;
+  padding: 12px 15px;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 16px;
+  background-color: var(--bg-container);
+  color: var(--text-primary);
+  transition: all 0.3s ease;
+}
+
+.todo-input::placeholder {
+  color: var(--text-secondary);
+}
+
+.todo-input:focus {
+  outline: none;
+  border-color: var(--border-focus);
+  box-shadow: 0 0 8px rgba(52, 152, 219, 0.4);
+}
+
+.todo-button {
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  background: var(--btn-primary-bg);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  transition: transform 0.2s ease, background 0.3s ease;
+}
+
+.todo-button:hover {
+  background: var(--btn-primary-hover);
+  transform: scale(1.05);
+}
+
+/* --- 6. Lista de Tareas (App.jsx) --- */
+.todo-list {
+  list-style: none;
+  padding: 0;
+}
+
+.empty-list-message {
+  text-align: center;
+  color: var(--text-secondary);
+  padding: 20px;
+  font-size: 1.1rem;
+}
+
+/* --- 7. Item de Tarea (TodoItem) --- */
+.todo-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--bg-container);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 12px 15px;
+  margin-bottom: 10px;
+  transition: transform 0.2s ease, box-shadow 0.3s ease, background-color 0.5s ease, border-color 0.5s ease;
+}
+
+.todo-item:hover {
+  transform: translateX(5px);
+  box-shadow: 0 4px 12px var(--shadow-color-hover);
+}
+
+/* Checkbox personalizado */
+.todo-item-checkbox {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--checkbox-border);
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex-shrink: 0; /* Evita que se encoja */
+}
+
+.todo-item-checkbox:checked {
+  background-color: var(--checkbox-checked);
+  border-color: var(--checkbox-checked);
+  position: relative;
+}
+
+/* Tilde (check) del checkbox */
+.todo-item-checkbox:checked::after {
+  content: '✔';
+  position: absolute;
+  color: white;
+  font-size: 14px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.todo-item-text {
+  flex: 1; /* Ocupa el espacio disponible */
+  color: var(--text-primary);
+  font-size: 16px;
+  transition: color 0.5s ease, opacity 0.3s ease, text-decoration 0.3s ease;
+  word-break: break-word; /* Para que el texto largo se rompa */
+}
+
+/* Estilos para tarea completada */
+.todo-item.completed .todo-item-text {
+  text-decoration: line-through;
+  opacity: 0.5;
+}
+
+.todo-item-delete-btn {
+  margin-left: auto; /* Empuja el botón a la derecha */
+  background: var(--btn-danger-bg) !important;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: transform 0.2s ease, background-color 0.3s ease;
+  flex-shrink: 0; /* Evita que se encoja */
+}
+
+.todo-item-delete-btn:hover {
+  background: var(--btn-danger-hover) !important;
+  transform: scale(1.1);
+}
+
+/* --- 8. Toggle de Modo Oscuro --- */
+.theme-toggle {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: var(--bg-container);
+  color: var(--text-primary);
+  border: 2px solid var(--border-color);
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 22px;
+  box-shadow: 0 4px 10px var(--shadow-color);
+  transition: all 0.3s ease;
+}
+
+.theme-toggle:hover {
+  transform: scale(1.1) rotate(15deg);
+  box-shadow: 0 6px 15px var(--shadow-color-hover);
+}
+
+/* --- 9. Modal de Confirmación --- */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: var(--bg-container);
+  padding: 25px;
+  border-radius: 15px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.modal-content h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  color: var(--text-primary);
+}
+
+.modal-content p {
+  margin-bottom: 25px;
+  color: var(--text-secondary);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.modal-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  border-radius: 8px;
+  transition: transform 0.2s ease, background 0.3s ease;
+}
+
+.modal-button.cancel {
+  background-color: transparent;
+  border: 2px solid var(--border-color);
+  color: var(--text-secondary);
+}
+.modal-button.cancel:hover {
+  background-color: var(--border-color);
+  transform: scale(1.05);
+}
+
+.modal-button.confirm-delete {
+  background: var(--btn-danger-bg);
+  color: white;
+}
+.modal-button.confirm-delete:hover {
+  background: var(--btn-danger-hover);
+  transform: scale(1.05);
+}
+
+.modal-button.confirm-add {
+  background: var(--btn-primary-bg);
+  color: white;
+}
+.modal-button.confirm-add:hover {
+  background: var(--btn-primary-hover);
+  transform: scale(1.05);
+}
+
+/* --- 10. Responsividad --- */
+@media (max-width: 768px) {
+  body {
+    padding: 20px 10px;
+  }
+  
+  .app-container {
+    padding: 20px;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  .todo-form {
+    flex-direction: column; /* Apila el input y el botón en móviles */
+    gap: 12px;
+  }
+
+  .todo-item {
+    padding: 12px;
+  }
+
+  .todo-item-text {
+    font-size: 15px;
+  }
+  
+  .theme-toggle {
+    top: 10px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+  }
+}
